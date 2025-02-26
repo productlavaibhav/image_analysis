@@ -89,7 +89,8 @@ def encode_image(image_bytes):
 # Function to analyze image with OpenAI
 def analyze_with_openai(base64_image):
     try:
-        response = openai.ChatCompletion.create(
+        client = openai.OpenAI()
+        response = client.chat.completions.create(
             model="gpt-4-vision-preview",  # Make sure to use a model that supports vision
             messages=[
                 {
@@ -136,7 +137,8 @@ def generate_prompt(vision_results, openai_description):
         Analysis data:
         """
         
-        response = openai.ChatCompletion.create(
+        client = openai.OpenAI()
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a thumbnail analysis expert who can create detailed prompts based on image analysis data."},
